@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
 import type { Pokemon, APIResourceList } from 'pokedex-promise-v2';
 import { Heading } from '@radix-ui/themes';
 import { PokemonCard } from "@/components/PokemonCard";
@@ -44,6 +44,9 @@ const PaginatedWithReactQuery = () => {
     },
     initialPageParam: 0,
   });
+
+  const queryClient = useQueryClient();
+
 
 
   const detailedPokemonQueries = useQueries({

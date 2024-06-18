@@ -3,7 +3,7 @@ import { Badge } from '@radix-ui/themes';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Pokemon } from 'pokedex-promise-v2';
 
-const PokemonCard = ({ pokemon }: { pokemon: Pokemon }) => (
+const PokemonCardFull = ({ pokemon }: { pokemon: Pokemon }) => (
   <Card>
     <CardHeader>
       <CardTitle>{pokemon.name}</CardTitle>
@@ -39,4 +39,12 @@ const PokemonCardSkeleton = ({name}: {name?: string}) => (
   </Card>
 );
 
-export { PokemonCard, PokemonCardSkeleton };
+
+const PokemonCard = ({ pokemon }: { pokemon: Pokemon | { name: string } }) => {
+  if ('height' in pokemon) {
+    return <PokemonCardFull pokemon={pokemon} />;
+  }
+  return <PokemonCardSkeleton name={pokemon.name} />;
+};
+
+export { PokemonCard, PokemonCardSkeleton, PokemonCardFull };

@@ -17,7 +17,7 @@ const fetchPokemonDetails = async (url: string) => {
   return response.json();
 };
 
-const FetchWithReactQuery = () => {
+const BasicWithReactQuery = () => {
   const { data: pokemonList, isLoading, error } = useQuery<APIResourceList, Error>({
     queryKey: ['pokemonListBasic'],
     queryFn: fetchPokemonList
@@ -57,4 +57,4 @@ const FetchWithReactQuery = () => {
   );
 };
 
-export default FetchWithReactQuery;
+export default BasicWithReactQuery;

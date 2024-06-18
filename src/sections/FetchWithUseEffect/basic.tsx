@@ -5,7 +5,7 @@ import { PokemonTypesSummary } from "@/components/PokemonTypesSummary";
 import { getTypeCounts } from "@/utils/typeCounts";
 import { Heading } from "@radix-ui/themes";
 
-const FetchWithUseEffect = () => {
+const basic = () => {
   const [pokemonList, setPokemonList] = useState<Partial<Pokemon>[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
@@ -95,4 +95,4 @@ const FetchWithUseEffect = () => {
   );
 };
 
-export default FetchWithUseEffect;
+export default basic;

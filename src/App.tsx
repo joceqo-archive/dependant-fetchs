@@ -1,7 +1,7 @@
 import { Basic, Paginated } from "@/sections/FetchWithUseEffect"
-import { BasicWithReactQuery, PaginatedWithReactQuery } from "@/sections/FetchWIthReactQuery"
+import { BasicWithReactQuery, PaginatedWithReactQuery, BatchWithReactQuery } from "@/sections/FetchWIthReactQuery"
 import { Button, Heading } from "@radix-ui/themes";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type Section = {
   name: string;
@@ -10,7 +10,14 @@ type Section = {
 };
 
 const App = () => {
-  const [selectedIndex, setSelectedIndex] = useState<number>(0);
+  const [selectedIndex, setSelectedIndex] = useState<number>(() => {
+    const savedIndex = localStorage.getItem('selectedIndex');
+    return savedIndex !== null ? Number(savedIndex) : 0;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('selectedIndex', selectedIndex.toString());
+  }, [selectedIndex]);
 
   const sectionList: { [key: number]: Section } = {
     0: {
@@ -32,6 +39,11 @@ const App = () => {
       name: 'react query paginated',
       description: 'here we use react query to fetch the data',
       component: <PaginatedWithReactQuery />
+    },
+    4: {
+      name: 'react query batch',
+      description: 'here we use react query to fetch the data',
+      component: <BatchWithReactQuery />
     }
   }
 

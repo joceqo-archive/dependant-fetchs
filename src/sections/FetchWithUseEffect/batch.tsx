@@ -7,7 +7,7 @@ import { PokemonTypesSummary } from "@/components/PokemonTypesSummary";
 
 const LIMIT = 150; // 150 is the total number of pokemons of the first generation
 
-const FetchWithUseEffect = () => {
+const batch = () => {
   const [pokemonList, setPokemonList] = useState<Partial<Pokemon & {url: string}>[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
@@ -123,4 +123,4 @@ const FetchWithUseEffect = () => {
   );
 };
 
-export default FetchWithUseEffect;
+export default batch;
