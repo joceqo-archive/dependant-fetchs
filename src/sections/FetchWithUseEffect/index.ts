@@ -1,2 +1,2 @@
-export { default as Simple } from './simple';
-export { default as Full } from './full';
+export { default as Basic } from './basic';
+export { default as Paginated } from './paginated';

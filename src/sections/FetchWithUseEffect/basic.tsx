@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import type { Pokemon, APIResourceList } from 'pokedex-promise-v2';
-import { Heading } from '@radix-ui/themes';
 import { PokemonCard, PokemonCardSkeleton } from "@/components/PokemonCard";
 import { PokemonTypesSummary } from "@/components/PokemonTypesSummary";
 import { getTypeCounts } from "@/utils/typeCounts";

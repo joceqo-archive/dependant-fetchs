@@ -1,4 +1,5 @@
-import { Simple, Full } from "@/sections/FetchWithUseEffect"
+import { Basic, Paginated } from "@/sections/FetchWithUseEffect"
+import { BasicWithReactQuery, PaginatedWithReactQuery } from "@/sections/FetchWIthReactQuery"
 import { Button, Heading } from "@radix-ui/themes";
 import { useState } from "react";
 
@@ -15,12 +16,22 @@ const App = () => {
     0: {
       name: 'simple',
       description: 'here we look for the url of 150 pokemons, then for each we fetch the data',
-      component: <Simple />
+      component: <Basic />
     },
     1: {
       name: 'full',
       description: 'here we fetch 100 pokemons, fetch the details, then 50 more to have all of the first, gen. This is more likely what you will encounter with regulars apis',
-      component: <Full />
+      component: <Paginated />
+    },
+    2: {
+      name: 'react query',
+      description: 'here we use react query to fetch the data',
+      component: <BasicWithReactQuery />
+    },
+    3: {
+      name: 'react query paginated',
+      description: 'here we use react query to fetch the data',
+      component: <PaginatedWithReactQuery />
     }
   }
 
