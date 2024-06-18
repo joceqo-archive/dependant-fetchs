@@ -3,6 +3,7 @@ import type { Pokemon, APIResourceList } from 'pokedex-promise-v2';
 import { PokemonCard } from "@/components/PokemonCard";
 import { PokemonTypesSummary } from "@/components/PokemonTypesSummary";
 import { getTypeCounts } from "@/utils/typeCounts";
+import { Heading } from '@radix-ui/themes';
 
 const fetchPokemonList = async () => {
   const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=150');
@@ -18,10 +19,11 @@ const fetchPokemonDetails = async (url: string) => {
 
 const FetchWithReactQuery = () => {
   const { data: pokemonList, isLoading, error } = useQuery<APIResourceList, Error>({
-    queryKey: ['pokemonList'],
+    queryKey: ['pokemonListBasic'],
     queryFn: fetchPokemonList
   });
 
+  console.log('pokemonList', pokemonList);
   const detailedPokemonQueries = useQueries({
     queries: pokemonList?.results?.map((pokemon) => ({
       queryKey: ['pokemonDetails', pokemon.url],
@@ -43,6 +45,7 @@ const FetchWithReactQuery = () => {
   return (
     <>
       <PokemonTypesSummary typeCounts={typeCounts} />
+      <Heading size="4" className="pb-2 mb-4">Pokémon Cards ({detailedPokemonData.length})</Heading>
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {detailedPokemonData.map((pokemon) => (
           <li key={pokemon.name}>

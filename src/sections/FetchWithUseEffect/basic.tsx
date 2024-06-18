@@ -3,6 +3,7 @@ import type { Pokemon, APIResourceList } from 'pokedex-promise-v2';
 import { PokemonCard, PokemonCardSkeleton } from "@/components/PokemonCard";
 import { PokemonTypesSummary } from "@/components/PokemonTypesSummary";
 import { getTypeCounts } from "@/utils/typeCounts";
+import { Heading } from "@radix-ui/themes";
 
 const FetchWithUseEffect = () => {
   const [pokemonList, setPokemonList] = useState<Partial<Pokemon>[]>([]);
@@ -74,7 +75,7 @@ const FetchWithUseEffect = () => {
   return (
     <>
       <PokemonTypesSummary typeCounts={typeCounts} />
-
+      <Heading size="4" className="pb-2 mb-4">Pokémon Cards ({pokemonList.length})</Heading>
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {pokemonList.map((pokemon) => {
           // pokemon is only a name show skeleton else show card
