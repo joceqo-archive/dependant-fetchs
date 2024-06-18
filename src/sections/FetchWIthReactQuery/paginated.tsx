@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQueryClient } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import type { Pokemon, APIResourceList } from 'pokedex-promise-v2';
 import { Heading } from '@radix-ui/themes';
 import { PokemonCard } from "@/components/PokemonCard";
@@ -6,19 +6,20 @@ import { getTypeCounts } from "@/utils/typeCounts";
 import { PokemonTypesSummary } from "@/components/PokemonTypesSummary";
 import { useEffect } from 'react';
 import { useQueries } from '@tanstack/react-query';
+import {_fetch} from '@/customFetch';
 
 const LIMIT = 150;
 const OFFSET = 50;
 
 const fetchPokemon = async ({ pageParam = 0 }: { pageParam?: number }) => {
   const offset = pageParam * OFFSET;
-  const response = await fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=50`);
+  const response = await _fetch(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=50`);
   if (!response.ok) throw new Error('Network response was not ok');
   return response.json();
 };
 
 const fetchPokemonDetails = async (url: string): Promise<Pokemon> => {
-  const response = await fetch(url);
+  const response = await _fetch(url);
   if (!response.ok) throw new Error('Network response was not ok');
   return response.json();
 };
@@ -32,7 +33,6 @@ const PaginatedWithReactQuery = () => {
   } = useInfiniteQuery<APIResourceList, Error>({
     queryKey: ['pokemonListPaginated'],
     queryFn: async ({ pageParam = 0 }) => {
-      console.log('pageParam', pageParam);
       return fetchPokemon({ pageParam: pageParam as number })
     },
     getNextPageParam: (_lastPage, _pages, lastPageParam) => {
@@ -44,10 +44,6 @@ const PaginatedWithReactQuery = () => {
     },
     initialPageParam: 0,
   });
-
-  const queryClient = useQueryClient();
-
-
 
   const detailedPokemonQueries = useQueries({
     queries: (data?.pages.flatMap(page => page.results) || []).map((pokemon) => ({
